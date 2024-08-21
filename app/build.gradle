@@ -19,9 +19,9 @@ android {
             targetCompatibility JavaVersion.VERSION_1_8
         }
         manifestPlaceholders = [
-                "DCLOUD_APPKEY"         : "b4ab7d1c668cbb3b257aeeabd75c29da",
-                "WX_APPID"              : "wx95039516c9f72e50",
-                "WX_SECRET"             : "123456",
+                "DCLOUD_APPKEY"         : "",
+                "WX_APPID"              : "",
+                "WX_SECRET"             : "",
                 "GETUI_APPID"           : "unipush的appid",
                 "plus.unipush.appid"    : "unipush的appid",
                 "plus.unipush.appkey"   : "unipuish的appkey",
