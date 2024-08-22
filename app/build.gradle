@@ -6,8 +6,8 @@ android {
         namespace "cn.wot_design_uni"
         applicationId "cn.wot_design_uni"
         resValue 'string', 'app_name', "μAppkit"
-        versionCode 1
-        versionName "1.1.0"
+        versionCode 100
+        versionName "1.0.0"
         minSdk 21
         targetSdk 30
         multiDexEnabled true
