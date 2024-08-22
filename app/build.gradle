@@ -5,7 +5,7 @@ android {
     defaultConfig {
         namespace "cn.wot_design_uni"
         applicationId "cn.wot_design_uni"
-        resValue 'string', 'app_name', "μAppkit"
+        resValue 'string', 'app_name', "Wot组件库"
         versionCode 100
         versionName "1.0.0"
         minSdk 21
@@ -19,13 +19,6 @@ android {
             targetCompatibility JavaVersion.VERSION_1_8
         }
         manifestPlaceholders = [
-                "DCLOUD_APPKEY"         : "",
-                "WX_APPID"              : "",
-                "WX_SECRET"             : "",
-                "GETUI_APPID"           : "unipush的appid",
-                "plus.unipush.appid"    : "unipush的appid",
-                "plus.unipush.appkey"   : "unipuish的appkey",
-                "plus.unipush.appsecret": "unipush的secrety"
         ]
     }
     signingConfigs {
