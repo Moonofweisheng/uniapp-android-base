@@ -135,6 +135,6 @@
         </activity>
         <meta-data
                 android:name="dcloud_appkey"
-                android:value="${DCLOUD_APPKEY}"/>
+                android:value="8c6a7bbf9db252b3430a9d35f154cd30"/>
     </application>
 </manifest>
