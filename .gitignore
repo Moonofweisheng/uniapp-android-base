@@ -96,3 +96,5 @@ lint/tmp/
 *.hprof
 
 /manifest.json
+
+*.gz
