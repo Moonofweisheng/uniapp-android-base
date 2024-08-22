@@ -115,15 +115,6 @@
                 android:name="${applicationId}.wxapi.WXPayEntryActivity"
                 android:exported="true"
                 android:launchMode="singleTop" />
-
-        <activity
-                android:name="io.dcloud.feature.payment.weixin.WXPayProcessMeadiatorActivity"
-                android:exported="false"
-                android:excludeFromRecents="true"
-                android:theme="@style/ProjectDialogTheme">
-        </activity>
-        <!-- 微信支付 }} -->
-
         <activity
                 android:name="io.dcloud.PandoraEntryActivity"
                 android:exported="true"
