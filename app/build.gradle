@@ -73,17 +73,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.aar'], dir: 'libs')
-    releaseImplementation fileTree(dir: 'libs', include: ['*.aar'], exclude: ['debug-server-release.aar'])
-
-    new File("$projectDir/sdk.libs").eachLine { fileName ->
-        def libFile = System.properties["user.home"] + "/.uappsdk/android/SDK/libs/" + fileName
-        debugImplementation files(libFile)
-
-        if (!fileName.contains("debug-server-release.aar")) {
-            releaseImplementation files(libFile)
-        }
-    }
-
+    releaseImplementation fileTree(dir: 'libs', include: ['*.aar'], exclude: [])
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
