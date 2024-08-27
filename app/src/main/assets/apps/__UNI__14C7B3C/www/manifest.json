@@ -4,11 +4,11 @@
     "iPhone",
     "iPad"
   ],
-  "id": "",
+  "id": "__UNI__14C7B3C",
   "name": "Wot组件库",
   "version": {
-    "name": "",
-    "code": ""
+    "name": "1.3.8",
+    "code": "1"
   },
   "description": "Wot Design Uni 组件库",
   "developer": {
@@ -131,5 +131,5 @@
     }
   },
   "launch_path": "__uniappview.html",
-  "appid": ""
+  "appid": "__UNI__14C7B3C"
 }
