@@ -4,14 +4,13 @@
     "iPhone",
     "iPad"
   ],
-  "id": "__UNI__14C7B3C",
-  "appid": "__UNI__14C7B3C",
+  "id": "",
   "name": "Wot组件库",
   "version": {
-    "name": "1.0.0",
-    "code": "100"
+    "name": "",
+    "code": ""
   },
-  "description": "",
+  "description": "Wot Design Uni 组件库",
   "developer": {
     "name": "",
     "email": "",
@@ -107,9 +106,6 @@
         }
       }
     },
-    "compatible": {
-      "ignoreVersion": true
-    },
     "statusbar": {
       "immersed": "supportedDevice",
       "style": "dark",
@@ -134,5 +130,6 @@
       }
     }
   },
-  "launch_path": "__uniappview.html"
+  "launch_path": "__uniappview.html",
+  "appid": ""
 }
