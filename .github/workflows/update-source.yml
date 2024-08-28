@@ -36,5 +36,5 @@ jobs:
       - name: Create and push tag  
         if: steps.extract_tag.outputs.tag != '' && success() == true  
         run: |  
-          git tag ${{ steps.extract_tag.outputs.tag }}  
-          git push origin ${{ steps.extract_tag.outputs.tag }}
+          git tag v${{ steps.extract_tag.outputs.tag }}  
+          git push origin v${{ steps.extract_tag.outputs.tag }}
