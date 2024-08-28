@@ -72,7 +72,7 @@ jobs:
       # Note: Ensure that the output variable 'signedReleaseFile' is actually set by the 'sign_app' step  
       - name: Rename APK  
         if: steps.sign_app.outcome == 'success' && steps.extract_tag.outputs.tag != '' && success() == true  
-        run: mv ${{ steps.sign_app.outputs.signedReleaseFile }} WotDesignUni_$GITHUB_REF_NAME.apk  
+        run: mv ${{ steps.sign_app.outputs.signedReleaseFile }} WotDesignUni_${{ steps.extract_tag.outputs.tag }}.apk  
   
       # Create Release  
       # Note: The artifacts path might need adjustment depending on the actual output of the Gradle build  
@@ -80,7 +80,7 @@ jobs:
         if: steps.sign_app.outcome == 'success'   && steps.extract_tag.outputs.tag != '' && success() == true  
         uses: ncipollo/release-action@v1  
         with:  
-          artifacts: "WotDesignUni_$GITHUB_REF_NAME.apk"  # Adjust this path if necessary  
+          artifacts: "WotDesignUni_${{ steps.extract_tag.outputs.tag }}.apk"  # Adjust this path if necessary  
           token: ${{ github.token }}  
           generateReleaseNotes: true
           tag: ${{ steps.extract_tag.outputs.tag }}
