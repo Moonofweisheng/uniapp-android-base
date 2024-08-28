@@ -17,9 +17,9 @@ jobs:
       - name: Extract tag from commit message  
         id: extract_tag  
         run: |  
-          # 使用grep和awk提取提交信息中的v*部分  
-          TAG=v$(git log -1 --pretty=%B | grep -oP 'v\K[^ ]*' || echo "")  
+          TAG=$(git log -1 --pretty=%B | grep -oP 'v\K[^ ]*' || echo "")  
           if [ -n "$TAG" ]; then  
+            TAG="v$TAG"
             echo "::set-output name=tag::${TAG}"  
           fi  
    
@@ -38,3 +38,48 @@ jobs:
         run: |  
           git tag ${{ steps.extract_tag.outputs.tag }}  
           git push --tags
+
+      - name: Setup Java  
+        if: steps.extract_tag.outputs.tag != '' && success() == true  
+        uses: actions/setup-java@v3  
+        with:  
+          distribution: temurin  
+          java-version: 11  
+  
+      # Build with Gradle  
+      - name: Build with Gradle  
+        if: steps.extract_tag.outputs.tag != '' && success() == true  
+        uses: gradle/gradle-build-action@v2  
+        with:  
+          gradle-version: current  
+          arguments: assembleRelease  
+  
+      # Sign Android Release  
+      - name: Sign Android Release  
+        if: steps.extract_tag.outputs.tag != '' && success() == true  
+        id: sign_app  
+        uses: r0adkll/sign-android-release@v1  
+        with:  
+          releaseDirectory: app/build/outputs/apk/release  
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}  
+          alias: ${{ secrets.ALIAS }}  
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}  
+          keyPassword: ${{ secrets.KEY_PASSWORD }}  
+        env:  
+          BUILD_TOOLS_VERSION: "34.0.0"  
+  
+      # Rename APK  
+      # Note: Ensure that the output variable 'signedReleaseFile' is actually set by the 'sign_app' step  
+      - name: Rename APK  
+        if: steps.sign_app.outcome == 'success' && steps.extract_tag.outputs.tag != '' && success() == true  
+        run: mv ${{ steps.sign_app.outputs.signedReleaseFile }} WotDesignUni_$GITHUB_REF_NAME.apk  
+  
+      # Create Release  
+      # Note: The artifacts path might need adjustment depending on the actual output of the Gradle build  
+      - name: Create Release  
+        if: steps.sign_app.outcome == 'success'   && steps.extract_tag.outputs.tag != '' && success() == true  
+        uses: ncipollo/release-action@v1  
+        with:  
+          artifacts: "WotDesignUni_$GITHUB_REF_NAME.apk"  # Adjust this path if necessary  
+          token: ${{ github.token }}  
+          generateReleaseNotes: true
