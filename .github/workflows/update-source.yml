@@ -83,3 +83,4 @@ jobs:
           artifacts: "WotDesignUni_$GITHUB_REF_NAME.apk"  # Adjust this path if necessary  
           token: ${{ github.token }}  
           generateReleaseNotes: true
+          tag: ${{ steps.extract_tag.outputs.tag }}
