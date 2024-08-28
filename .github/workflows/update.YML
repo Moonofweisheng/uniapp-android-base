@@ -1,0 +1,40 @@
+name: Tag on Push  
+  
+on:  
+  push:  
+    branches:  
+      - main   
+  
+jobs:  
+  tag-release:  
+    runs-on: ubuntu-latest  
+    steps:  
+      - name: Checkout code  
+        uses: actions/checkout@v3  
+        with:  
+          fetch-depth: 0  
+  
+      - name: Extract tag from commit message  
+        id: extract_tag  
+        run: |  
+          # 使用grep和awk提取提交信息中的v*部分  
+          TAG=$(git log -1 --pretty=%B | grep -oP 'v\K[^ ]*' || echo "")  
+          if [ -n "$TAG" ]; then  
+            echo "::set-output name=tag::${TAG}"  
+          fi  
+   
+      - name: Check if tag exists  
+        id: check_tag  
+        if: steps.extract_tag.outputs.tag != ''  
+        run: |  
+          # 检查标签是否已存在  
+          if git tag | grep -q "^${{ steps.extract_tag.outputs.tag }}$"; then  
+            echo "Tag already exists."  
+            exit 1  
+          fi  
+   
+      - name: Create and push tag  
+        if: steps.extract_tag.outputs.tag != '' && success() == true  
+        run: |  
+          git tag ${{ steps.extract_tag.outputs.tag }}  
+          git push origin ${{ steps.extract_tag.outputs.tag }}
