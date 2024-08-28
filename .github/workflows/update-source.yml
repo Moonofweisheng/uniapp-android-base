@@ -84,3 +84,7 @@ jobs:
           token: ${{ github.token }}  
           generateReleaseNotes: true
           tag: ${{ steps.extract_tag.outputs.tag }}
+      - name: Upload apk to Pgyer
+        if: steps.sign_app.outcome == 'success'   && steps.extract_tag.outputs.tag != '' && success() == true 
+        run: |
+          curl -F 'file=@WotDesignUni_${{ steps.extract_tag.outputs.tag }}.apk' -F '_api_key=${{secrets.PGYER_API_KEY}}' https://www.pgyer.com/apiv2/app/upload
