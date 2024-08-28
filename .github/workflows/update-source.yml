@@ -18,7 +18,7 @@ jobs:
         id: extract_tag  
         run: |  
           # 使用grep和awk提取提交信息中的v*部分  
-          TAG=$(git log -1 --pretty=%B | grep -oP 'v\K[^ ]*' || echo "")  
+          TAG=v$(git log -1 --pretty=%B | grep -oP 'v\K[^ ]*' || echo "")  
           if [ -n "$TAG" ]; then  
             echo "::set-output name=tag::${TAG}"  
           fi  
@@ -36,5 +36,5 @@ jobs:
       - name: Create and push tag  
         if: steps.extract_tag.outputs.tag != '' && success() == true  
         run: |  
-          git tag v${{ steps.extract_tag.outputs.tag }}  
-          git push origin v${{ steps.extract_tag.outputs.tag }}
+          git tag ${{ steps.extract_tag.outputs.tag }}  
+          git push origin ${{ steps.extract_tag.outputs.tag }}
